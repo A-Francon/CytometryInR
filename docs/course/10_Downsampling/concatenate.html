@@ -553,8 +553,8 @@ window.Quarto = {
 <div style="text-align: right;">
 <p><a href="https://www.gnu.org/licenses/agpl-3.0.en.html"><img src="https://img.shields.io/badge/license-AGPLv3-blue.png" class="img-fluid" alt="AGPL-3.0"></a> <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" class="img-fluid" alt="CC BY-SA 4.0"></a></p>
 </div>
-<p>For the YouTube livestream schedule, see <a href="https://www.youtube.com/@cytometryinr">here</a></p>
-<p>For screen-shot slides, click <a href="../../course/10_Downsampling/slides.html">here</a></p>
+<p>For the YouTube livestream recording, see <a href="https://www.youtube.com/live/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;t=68">here</a></p>
+<p>For screen-shot slides, click <a href="../../course/10_Downsampling/concatenate_slides.html">here</a></p>
 <p><br></p>
 <hr>
 <section id="background" class="level1">
@@ -793,33 +793,33 @@ Attaching package: 'dplyr'</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Values[[<span class="dv">1</span>]], <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Time    SSC-W  SSC-H    SSC-A    FSC-W   FSC-H   FSC-A  SSC-B-W SSC-B-H
-1 569718 735006.8 451096 552597.7 724836.5 1306589 1578439 723546.8  319948
-2 664750 736711.6 282500 346868.3 701314.3 1093326 1277942 713544.6  236795
-3 122942 813159.8 403713 547138.6 740871.1 1382700 1707337 816464.2  312698
-   SSC-B-A  BUV395-A BUV563-A   BUV615-A  BUV661-A  BUV737-A BUV805-A
-1 385828.9  7073.214 2980.259 -183.12750  302.0168 17154.477 32266.50
-2 281606.3  1947.683 5162.803 -433.43549  547.5488 13916.538 34562.78
-3 425511.2 17311.400 3220.592   73.49756 -188.5359  7778.372 30327.39
-  Pacific Blue-A   BV480-A     BV570-A  BV605-A   BV650-A   BV711-A   BV750-A
-1       205.2083 -724.7899    6.024807 51695.01 -105.3464 1248.0292  835.8068
-2       431.5034  358.1596 -518.355591 28236.95  902.7900  684.2457 -106.3043
-3      1137.2607 -252.6228 -207.052567 11855.92  259.5836 -194.7905  934.0159
-    BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A    RB613-A
-1 -65.86583         -495.5481         27064.89         14269.60 -1318.1555
-2 950.70410          258.3294         56160.83         13647.04  -735.9675
-3 524.78064          190.7974         37358.54         10642.19   471.1873
-   RB705-A  RB780-A     PE-A PE-Dazzle594-A  PE-Cy5-A PE-Fire 700-A
-1 63664.04 446.7836 1090.995      1130.1836 -266.8655      3940.161
-2 14542.03 387.7481 2285.601      1062.1901 -457.7373      4460.048
-3 94253.55 216.6012 2100.140       358.9336 -180.3640      6821.991
-  PE-Fire 744-A PE-Vio770-A      APC-A Alexa Fluor 647-A APC-R700-A
-1     352.39749    65.40487  738.96637         -258.2641   358.7878
-2      40.59173  2081.14429  -94.80936          446.1342  -473.9799
-3    -288.76682   727.80573 1364.49744         -332.9410  1287.5844
-  Zombie NIR-A APC-Fire 750-A APC-Fire 810-A     AF-A
-1     842.6860      14778.357      15142.657 4934.762
-2     628.4554      12752.763       9698.445 2236.619
-3    2382.4658       9252.688      11154.097 4862.345</code></pre>
+1 893485 751278.9 500792 627057.5 730217.9 1355194 1649312 719707.6  438384
+2 351329 773890.6 251660 324595.5 690984.3  906408 1043856 733409.9  220799
+3 254684 748418.8 488747 609645.8 738211.4 1218170 1498778 730263.0  324289
+   SSC-B-A  BUV395-A  BUV563-A  BUV615-A  BUV661-A BUV737-A BUV805-A
+1 525847.1 28538.189  3369.288  108.0819 -189.8242 8720.529 35011.81
+2 269893.6  3614.851  2293.726  264.4419  -59.7036 8624.886 26293.58
+3 394693.8  2789.621 16217.739 -502.3599 -124.2707 5152.474 28499.50
+  Pacific Blue-A   BV480-A    BV570-A  BV605-A   BV650-A    BV711-A   BV750-A
+1       988.4554 -268.4181   96.59409 22058.92 -140.6441  -761.2369 1123.8821
+2       740.4835  552.5992 -411.15448 20911.16  105.9250 -1074.3618  548.2530
+3       365.3436 -265.4434  637.80676 33094.43 -143.0954   895.6386  683.5524
+    BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A   RB613-A
+1  15.06581          822.3099         36100.45        11685.327  693.4750
+2 269.74738          511.8119         39154.06         8112.786  632.0668
+3 872.34222         -235.5316         25135.24        10474.894 -281.8665
+   RB705-A   RB780-A      PE-A PE-Dazzle594-A PE-Cy5-A PE-Fire 700-A
+1 46413.99 1146.3301 3373.5464       220.2426 799.2888      2037.823
+2 86891.78 -259.9030  820.0635      -370.2355 167.8084      3046.856
+3 62212.64  419.0617  391.4763       278.0746 208.0087      3068.469
+  PE-Fire 744-A PE-Vio770-A     APC-A Alexa Fluor 647-A APC-R700-A Zombie NIR-A
+1      690.6830   -84.12591 1535.7009        -139.83607   641.4341     63.35442
+2     -590.4329   677.11707 1542.0167       -1691.62646  1161.5847    130.49394
+3      855.3606   -44.82363  164.4062         -70.65484   141.8517    366.75986
+  APC-Fire 750-A APC-Fire 810-A     AF-A
+1      21535.461      15997.090 4816.475
+2       5699.131       6546.446 2112.091
+3      12008.427       7098.105 4420.349</code></pre>
 </div>
 </div>
 <p>Having retrieved back a “data.frame” style, lets switch “returnType” argument back and make sure we can still also retrieve a “flowFrame” object (which means our conditional statement is implemented correctly).</p>

@@ -20,7 +20,7 @@ execute:
 [![AGPL-3.0](https://img.shields.io/badge/license-AGPLv3-blue)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 :::
 
-For the YouTube livestream schedule, see [here](https://www.youtube.com/@cytometryinr)
+For the YouTube livestream recording, see [here](https://www.youtube.com/live/QgI6lmYDu98?si=AeyGgsUi8i37ayKf&t=162)
 
 For screen-shot slides, click [here](/course/SDY3080/ImmPort_slides.qmd)
 
@@ -35,6 +35,8 @@ For screen-shot slides, click [here](/course/SDY3080/ImmPort_slides.qmd)
 During weeks twelve through fourteen of the [Cytometry in R course](https://umgcccfcsr.github.io/CytometryInR/), we primarily focus on how to work with raw Spectral Flow Cytometry (SFC) .fcs files. During Week 12, we learn how to extract out and characterize fluorescent signatures that are present in our unmixing controls (both single-color and unstained). This is followed up on Week 13 by learning how to compare these signatures with each other, allowing us to predict how they will interact in context of a full SFC panel. Finally, in Week 14, we take the fluorescent signatures we have derived from our unmixing controls and use them to unmix full-stained samples. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -68,6 +70,8 @@ To start, first navigate to the [ImmPort repository](https://www.immport.org/). 
 :::
 :::
 
+---
+
 ![](images/000_ImmPortLandingPage.png)
 
 ---
@@ -77,6 +81,8 @@ To start, first navigate to the [ImmPort repository](https://www.immport.org/). 
 If this is your first time using the ImmPort repository, you will need to create a free account. The simplest way to start the process is to go ahead and click on the [login button](https://www.immport.org/auth/login) on the upper-right hand of the screen. 
 :::
 :::
+
+---
 
 ![](images/000_ImmPortLandingPage.png)
 
@@ -88,6 +94,8 @@ This will take you to the login page, which also includes the the option to regi
 :::
 :::
 
+---
+
 ![](images/000_Register.png)
 
 ---
@@ -98,6 +106,8 @@ You will then reach a page with a notice about the next steps and the need to ac
 :::
 :::
 
+---
+
 ![](images/000_RegisterAcceptTerms.png)
 
 ---
@@ -107,6 +117,8 @@ You will then reach a page with a notice about the next steps and the need to ac
 You will then be prompted to fill out various fields that are needed to create your account. When complete, proceed with your account registration by selecting Register. 
 :::
 :::
+
+---
 
 ![](images/000_RegistrationFields.png)
 
@@ -124,6 +136,8 @@ You will next proceed through several additional steps before completing account
 If you are registering for the first time, please take some documentation screenshots of these last couple registration steps (leave blank/whiteout any important personal information) and post them to this [issue page](https://github.com/UMGCCCFCSR/CytometryInR/issues/217), I will update this page accordingly. Thanks! David 
 :::
 
+---
+
 ![](images/001_Login.png) 
 
 ---
@@ -133,6 +147,8 @@ If you are registering for the first time, please take some documentation screen
 Proceed to provide your loing information, and select login. You will then start the two-factor authentication process. Go to your email and retrieve the code that was sent to you.
 :::
 :::
+
+---
 
 ![](images/001_CodeEmail.png)
 
@@ -144,6 +160,8 @@ Return to the two-factor authentication screen and submit the provided code.
 :::
 :::
 
+---
+
 ![](images/001_TwoFactor.png)
 
 ---
@@ -153,6 +171,8 @@ Return to the two-factor authentication screen and submit the provided code.
 And with that done, Congratulations! You have now both registed and logged in to ImmPort. You are now (finally) able to access and download the dataset for this example.
 :::
 :::
+
+---
 
 ![](images/001_ImmPortLanding.png)
 
@@ -165,6 +185,8 @@ And with that done, Congratulations! You have now both registed and logged in to
 As aforementioned, [ImmPort](https://docs.immport.org/home/about/) contains many different forms of Immunological data, including conventional, spectral and mass cytometry datasets. 
 :::
 :::
+
+---
 
 ![](images/001_ImmPortLanding.png)
 
@@ -184,6 +206,8 @@ To get started, following login, proceed to look up [SDY3080](https://www.immpor
 :::
 :::
 
+---
+
 ![](images/001_SDY3080Lookup.png)
 
 ---
@@ -193,6 +217,8 @@ To get started, following login, proceed to look up [SDY3080](https://www.immpor
 You will end up in the search results page. Since we looked up based on the study accession number, it comes up right away. 
 :::
 :::
+
+---
 
 ![](images/00_SDY3080.png)
 
@@ -204,6 +230,8 @@ To get started accessing the data, go ahead and click on the study accession num
 :::
 :::
 
+---
+
 ![](images/01_ClickSDY3080.png)
 
 ---
@@ -213,6 +241,8 @@ To get started accessing the data, go ahead and click on the study accession num
 Under Download options on the upper-right, proceed to select the Study Package (Web) option. 
 :::
 :::
+
+---
 
 ![](images/02_StudyPackageWeb.png)
 
@@ -224,6 +254,8 @@ You will now be taken to the studies data folder. ImmPort studies contain additi
 :::
 :::
 
+---
+
 ![](images/03_ResultsFolder.png)
 
 ---
@@ -233,6 +265,8 @@ You will now be taken to the studies data folder. ImmPort studies contain additi
 Once within the Results folder, proceed to select the Flow_cytometry_result subfolder. 
 :::
 :::
+
+---
 
 ![](images/04_FlowCytometryFolder.png)
 
@@ -254,6 +288,8 @@ Once this is done, change the option of number of files displayed to show the ma
 :::
 :::
 
+---
+
 ![](images/05_ChangePageDisplay.png)
 
 ---
@@ -272,6 +308,8 @@ You can select multiple files to download by clicking on the checkboxes on the l
 :::
 :::
 
+---
+
 ![](images/06_ILT00and01.png)
 
 ---
@@ -281,6 +319,8 @@ You can select multiple files to download by clicking on the checkboxes on the l
 Once the specimens of interest have been selected, proceed to click on the Download Cart option. 
 :::
 :::
+
+---
 
 ![](images/07_DownloadCart.png)
 
@@ -292,6 +332,8 @@ You will then encounter a Confirm Download pop-up. If these were the files you i
 :::
 :::
 
+---
+
 ![](images/08_YesDownload.png)
 
 ---
@@ -302,6 +344,8 @@ The Preparing Download pop-up screen will then appear as your zipped folder is p
 :::
 :::
 
+---
+
 ![](images/09_WaitingScreen.png)
 
 ---
@@ -311,6 +355,8 @@ The Preparing Download pop-up screen will then appear as your zipped folder is p
 If the retrieval process is succesful, you will then be prompted to save the folder to a desired location on your computer. Go ahead and proceed to extract out the contents for subsequent use. 
 :::
 :::
+
+---
 
 ![](images/10_ExtractZippedFolder.png)
 
@@ -324,6 +370,8 @@ Occasionally, when attempting to download via the web, ImmPort will fail out on 
 :::
 :::
 
+---
+
 ![](images/16_TooLargeError.png)
 
 ---
@@ -334,6 +382,8 @@ From our limited testing, this often appears when the combined file download siz
 :::
 :::
 
+---
+
 ![](images/17_SuccessSmallerSets.png)
 
 ---
@@ -343,6 +393,8 @@ From our limited testing, this often appears when the combined file download siz
 Alternatively, you can download indiviudal files by selecting the download arrow next to each file to download individually if this occurs
 :::
 :::
+
+---
 
 ![](images/001_IndividualFiles.png)
 
@@ -363,6 +415,8 @@ At this point, for the walk-through, we chose to organize our retrieved files in
 :::
 :::
 
+---
+
 ![](images/11_DataFolderOrg.png)
 
 ---
@@ -372,6 +426,8 @@ At this point, for the walk-through, we chose to organize our retrieved files in
 A couple things to note going forward if you are following along, the file sizes of the individual cell single-color control can be seen here
 :::
 :::
+
+---
 
 ![](images/12_OG-SC-Cell-Size.png)
 
@@ -383,6 +439,8 @@ By contrast, the single-color bead controls are much smaller
 :::
 :::
 
+---
+
 ![](images/13_OG-SC-Bead-Size.png)
 
 ---
@@ -393,6 +451,8 @@ This dataset also contained specimen-matched condition-matched unstained samples
 :::
 :::
 
+---
+
 ![](images/15_OG_Unstaineds_Size.png)
 
 ---
@@ -402,6 +462,8 @@ This dataset also contained specimen-matched condition-matched unstained samples
 Likewise, as anticipated, the full-stained .fcs file sizes are also large, given thatover  > 3 million events were acquired in an attempt to profile cord blood Innate-like T cells. 
 :::
 :::
+
+---
 
 ![](images/14_OG_Samples_Size.png)
 
@@ -423,11 +485,17 @@ Beyond what we showcased here, there are a lot of additional repositories on Imm
 
 ---
 
+![](images/TakeAway1.jpg)
+
+---
+
 # Additional Resources
 
 [Searching ImmPort Shared Data](https://docs.immport.org/help/navigation/cdt/)
 
 [How to Download Data](https://docs.immport.org/download/)
+
+---
 
 ::: {style="text-align: right;"}
 [![AGPL-3.0](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)

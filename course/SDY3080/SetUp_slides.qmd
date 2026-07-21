@@ -20,7 +20,7 @@ execute:
 [![AGPL-3.0](https://img.shields.io/badge/license-AGPLv3-blue)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 :::
 
-For the YouTube livestream schedule, see [here](https://www.youtube.com/@cytometryinr)
+For the YouTube livestream recording, see [here](https://youtu.be/QCx0tAEZaMA?si=v9mtvSy7JD9U489M&t=18)
 
 For screen-shot slides, click [here](/course/SDY3080/SetUp_slides.qmd)
 
@@ -36,17 +36,23 @@ During weeks twelve through fourteen of the [Cytometry in R course](https://umgc
 :::
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Due to the Cytometry in R's course use of GitHub, we are not able to include the full-sized .fcs files due to individual file size sharing constraints. The datasets used during Week's 12 through 14 were consequently downsampled to get around this issue. However, working with the complete datasets can provide additional insight (as well as more closely replicate the experience of working with your own datasets).  This walk-through therefore contains the steps needed to both retrieve and process the original .fcs files that were used from the [ImmPort](https://www.immport.org/) repository. 
 :::
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Continuing where we left off at the [ImmPort](/course/SDY3080/ImmPort.qmd) walk-through, we will proceed to assemble GatingSets for the single-color unmixing controls (one for beads, and one for cells), as well as an additional GatingSet for the unstained unmixing controls. These will include clean-up gates to ensure we are only gating on events we are actually interested in. For a typical workflow, these would then be saved as their own GatingSet (.gs) object in your local environment as an intermediate step allowing for quick return. It is from these same intermediates that the final datasets for the [Cytometry in R course](https://umgcccfcsr.github.io/CytometryInR/)'s Week 12-14 were retrieved from the final clean gate in each GatingSet using the `Downsampling()` function from [Week 10](/course/10_Downsampling/index.qmd). 
 :::
 :::
+
+---
 
 # Walk-Through
 
@@ -58,13 +64,19 @@ In the previous walk-through, we downloaded the original .fcs files for the [SDY
 :::
 :::
 
+---
+
 ![](images/11_DataFolderOrg.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We will next load each of these subfolders into it's own GatingSet object via the `flowWorkspace` package, and implement some basic cleanup gates using the `flowGate` package. We will then check the gates as applied to the individual specimens, ensuring that everything is in order before saving as an intermediate .gs object to allow for quick retrieval for subsequent data processing steps. 
 :::
 :::
+
+---
 
 ## .gitignore
 
@@ -74,13 +86,18 @@ Before continuing, if you are working within your own project folder in [Positro
 :::
 :::
 
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 If a git repository has been initiated for your project folder, you can find your .gitignore file in the primary left-side bar. A .gitignore file is used to designate specific files or folders that should never be committed to Git. It is often used to avoid sending large files, sensitive information, or password files that you want to strictly remain on your local computer. 
 :::
 :::
 
+---
+
 ![](images/002_GitIgnore.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -88,7 +105,11 @@ When opening for the first time, you will typically only have a couple items rel
 :::
 :::
 
+---
+
 ![](images/002_GitIgnored.png)
+
+---
 
 ## Updating flowGate and Luciernaga
 
@@ -104,11 +125,15 @@ Since the `flowGate` package is open-source, I ended up writing [several additio
 :::
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the twice-yearly release cycle, this means they will roll into the regular [Bioconductor version](https://bioconductor.posit.co/packages/devel/bioc/html/flowGate.html) of `flowGate` in the next major release. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -129,6 +154,8 @@ remotes::install_github("NKInstinct/flowGate") # If non-functional, try the clas
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 The version containing both the ggplot2/ggcyto bug fixes as well as the new gating functions should be any version starting at/after 1.31.1
@@ -141,6 +168,8 @@ packageVersion("flowGate")
 ```
 
 :::
+
+---
 
 ## Initial Setup
 
@@ -160,6 +189,8 @@ library(purrr)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Next, since we will be relying on the `Downsampling()` function that was created as part of [Week 10](/course/10_Downsampling/index.qmd) of the course, we can call the R folder in which it is stored to make it active in our local environment.
@@ -174,6 +205,8 @@ purrr::walk(.x=MyFunctions, .f=source)
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -192,6 +225,8 @@ OutputLocation <- file.path("outputs")
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With these file paths set up, lets proceed to identify the individual subfolders where the different types of .fcs files are being stored, and designate them to their own respective variables for subsequent use. 
@@ -206,6 +241,8 @@ Folders
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Samples_FullStained <- Folders[1] # Full-Stained # Don't Touch Yet
@@ -216,6 +253,8 @@ Cells_Unstained <- Folders[4] # Unstained Cells
 
 :::
 
+---
+
 ## Individual GatingSets
 
 ::: {.fragment}
@@ -223,6 +262,8 @@ Cells_Unstained <- Folders[4] # Unstained Cells
 With the file paths set to the respective sub folders based on the type of .fcs file, lets proceed to load the .fcs files contained within each of them into their own respective GatingSet objects in our environment. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -246,6 +287,8 @@ BeadsSC_GatingSet <- GatingSet(BeadsSC_cytoset)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -256,7 +299,11 @@ pData(BeadsSC_GatingSet)
 
 :::
 
+---
+
 ![](images/21_BeadspData.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -280,6 +327,8 @@ CellsSC_GatingSet <- GatingSet(CellsSC_cytoset)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -290,8 +339,11 @@ pData(CellsSC_GatingSet)
 
 :::
 
+---
+
 ![](images/22_CellspData.png)
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -315,6 +367,8 @@ Unstained_GatingSet <- GatingSet(Unstained_cytoset)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -325,7 +379,11 @@ pData(Unstained_GatingSet)
 
 :::
 
+---
+
 ![](images/23_UnstainedPData.png)
+
+---
 
 ## Transformation
 
@@ -334,6 +392,8 @@ pData(Unstained_GatingSet)
 In the next couple walk-throughs, we are working with raw .fcs files. You may be wondering if we need to transform these files? Since we will be working with extracting out the single-color and autofluorescence signatures, which rely on raw values, our first inclination would be correctly assume we do not need to transform, as this might impact the overall signature. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -356,6 +416,8 @@ transform(BeadsSC_GatingSet, MyBiexTransform)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -371,6 +433,8 @@ transform(CellsSC_GatingSet, MyBiexTransform)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -385,6 +449,8 @@ transform(Unstained_GatingSet, MyBiexTransform)
 ```
 
 :::
+
+---
 
 ## Initial Gates
 
@@ -405,6 +471,8 @@ BeadGatingTable <- tibble::tribble(
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 For the cells, since quite a few of the controls used cord blood mononuclear cells, we will include an additional gate to exclude any residual RBCs or pre-RBCs that might remain after freeze-thaw.
@@ -423,6 +491,8 @@ CellGatingTable <- tibble::tribble(
 
 :::
 
+---
+
 ### Beads
 
 ::: {.fragment}
@@ -439,13 +509,23 @@ flowGate::gs_apply_gating_strategy(BeadsSC_GatingSet, gating_strategy = BeadGati
 
 :::
 
+---
+
 ![](images/24_ScatterBeadsStart.png)
+
+---
 
 ![](images/25_ScatterBeadsEnd.png)
 
+---
+
 ![](images/26_BeadsSingletsStart.png)
 
+---
+
 ![](images/27_BeadsSingletsEnd.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -461,13 +541,19 @@ gs_apply_gate_check(gs=BeadsSC_GatingSet, gate="scatter")
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 In a situation where the gate is good without any adjustments, simply click Done to move to the next specimen. 
 :::
 :::
 
+---
+
 ![](images/28_GoodToGo.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -475,7 +561,11 @@ If however, you want to correct the gate, select polygon and proceed to draw a n
 :::
 :::
 
+---
+
 ![](images/29_Adjust.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -483,7 +573,11 @@ When the new gate is set, select Done to proceed to the next specimen.
 :::
 :::
 
+---
+
 ![](images/30_Adjusted.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -499,11 +593,19 @@ gs_apply_gate_check(gs=BeadsSC_GatingSet, gate="singlets")
 
 :::
 
+---
+
 ![](images/31_Good.png)
+
+---
 
 ![](images/32_Adjust.png)
 
+---
+
 ![](images/33_Adjusted.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -519,6 +621,8 @@ gs_to_openCyto(gs=BeadsSC_GatingSet, sample=1, outpath=OutputLocation,
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -537,11 +641,15 @@ save_gs(BeadsSC_GatingSet, BeadSaveHere)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the GatingSet for the bead single-color unmixing controls now set up, we can proceed to carry out the same steps for the cell single-color unmixing controls. 
 :::
 :::
+
+---
 
 ### Cells - Single Colors
 
@@ -559,15 +667,27 @@ flowGate::gs_apply_gating_strategy(CellsSC_GatingSet, gating_strategy = CellGati
 
 :::
 
+---
+
 ![](images/34_Singlets.png)
+
+---
 
 ![](images/35_SingletsEnd.png)
 
+---
+
 ![](images/36_nonRBCs.png)
+
+---
 
 ![](images/37_Lymphocytes.png)
 
+---
+
 ![](images/38_LymphocytesEnd.png)
+
+---
 
 
 ::: {.fragment}
@@ -584,7 +704,11 @@ gs_apply_gate_check(gs=CellsSC_GatingSet, gate="singlets")
 
 :::
 
+---
+
 ![](images/39_AdjustedSinglets.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -600,6 +724,8 @@ gs_apply_gate_check(gs=CellsSC_GatingSet, gate="nonRBCs")
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We can then wrap up with checking our scatter gate and adjusting as necessary (remembering we have some samples that are CBMC vs. PBMC, or PMA-ionomycin activated vs. control)
@@ -614,15 +740,23 @@ gs_apply_gate_check(gs=CellsSC_GatingSet, gate="scatter")
 
 :::
 
+---
+
 ![](images/40_CBMCAdjustStart.png)
 
+---
+
 ![](images/41_CBMCAdjusted.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Additionally, we have a couple single-color controls where we need to adjust the scatter gate to a different location on the FSC x SSC plot. These include our single-color for CD14, where the brightest staining cells are going to be among the monocytes; and the two Zombie NIR controls, where the brightest cells are going to be among the dead cells between the debris and the healthy cells. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -639,7 +773,11 @@ pd |> mutate(Row = dplyr::row_number())
 
 :::
 
+---
+
 ![](images/42_pDataRowNumber.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -655,7 +793,11 @@ gs_apply_gate_check(gs=CellsSC_GatingSet[24], gate="scatter") # Adjust to Monocy
 
 :::
 
+---
+
 ![](images/43_MonocytesAdjusted.png)
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -665,7 +807,11 @@ gs_apply_gate_check(gs=CellsSC_GatingSet[31], gate="scatter") # Adjust to Dead #
 
 :::
 
+---
+
 ![](images/44_CordDead.png)
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -675,7 +821,11 @@ gs_apply_gate_check(gs=CellsSC_GatingSet[32], gate="scatter") # Adjust to Dead #
 
 :::
 
+---
+
 ![](images/44_PMADead.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -691,6 +841,8 @@ gs_to_openCyto(gs=CellsSC_GatingSet, sample=1, outpath=OutputLocation,
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -708,6 +860,8 @@ save_gs(CellsSC_GatingSet, CellsSCSaveHere)
 
 :::
 
+---
+
 ### Cells - Unstained
 
 ::: {.fragment}
@@ -721,6 +875,8 @@ With the single-color GatingSets now set up for both the beads and cells, we can
 The process for setting up the initial gates is nearly identical as that of the single-color controls, with the main gate of importance for any adjustments being the scatter gate which will be different between the adult donor PBMC and CBMC specimens. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -736,11 +892,19 @@ flowGate::gs_apply_gating_strategy(Unstained_GatingSet, gating_strategy = CellGa
 
 :::
 
+---
+
 ![](images/45_Singlets.png)
+
+---
 
 ![](images/45_nonRBCs.png)
 
+---
+
 ![](images/45_CBMCs.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -756,6 +920,8 @@ gs_apply_gate_check(gs=Unstained_GatingSet, gate="singlets")
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -763,6 +929,8 @@ gs_apply_gate_check(gs=Unstained_GatingSet, gate="nonRBCs")
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -772,6 +940,8 @@ gs_apply_gate_check(gs=Unstained_GatingSet, gate="scatter")
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -780,6 +950,8 @@ gs_to_openCyto(gs=Unstained_GatingSet, sample=1, outpath=OutputLocation,
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -791,6 +963,8 @@ save_gs(Unstained_GatingSet, CellsUnstainedSaveHere)
 ```
 
 :::
+
+---
 
 ## Downsampling 
 
@@ -818,6 +992,8 @@ AllDNs <- purrr::map(.x=BeadsSC_GatingSet, subset="singlets", .f=Downsampling, D
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -835,6 +1011,8 @@ AllDNs <- purrr::map(.x=CellsSC_GatingSet, subset="scatter", .f=Downsampling, Do
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -854,6 +1032,8 @@ AllDNs <- purrr::map(.x=Unstained_GatingSet, subset="scatter", .f=Downsampling, 
 
 :::
 
+---
+
 # Take-Away
 
 ::: {.fragment}
@@ -862,15 +1042,25 @@ During this walk-through, we have loaded in our unmixing controls (both single-c
 :::
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 In the next portion of this walk-through, we will orchestrate the creation of individual gates for every single-color in our panel, allowing for the derivation of the single-color unmixing matrix that is needed to retrieve the normalized fluorescent signatures, as well as later on for use in unmixing the full-stained controls. 
 :::
 :::
 
+---
+
+![](images/TakeAway2.jpg)
+
+---
+
 # Additional Resources
 
 [flowGate merged changes](https://github.com/NKInstinct/flowGate/pull/12)
+
+---
 
 ::: {style="text-align: right;"}
 [![AGPL-3.0](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)

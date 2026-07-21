@@ -20,9 +20,11 @@ execute:
 [![AGPL-3.0](https://img.shields.io/badge/license-AGPLv3-blue)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 :::
 
-For the YouTube livestream schedule, see [here](https://www.youtube.com/@cytometryinr)
+For the YouTube livestream recording, see [here](https://www.youtube.com/live/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&t=68)
 
-For screen-shot slides, click [here](/course/10_Downsampling/slides.qmd)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;start=68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+For screen-shot slides, click [here](/course/10_Downsampling/concatenate_slides.qmd)
 
 <br>
 
@@ -61,6 +63,7 @@ Unlike `Downsampling()`, which works within an individual .fcs files (i.e. one a
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -75,6 +78,7 @@ For .fcs files, these keywords end up being integrated in as additional numeric 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -89,6 +93,8 @@ However, if you are not yet burnt out on function building, the walk-through doc
 :::
 :::
 
+---
+
 
 ## Set Up
 
@@ -98,6 +104,7 @@ Seeing as this portion of the original walk-through (index.qmd) has now been rel
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -116,6 +123,8 @@ library(purrr)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Next up, lets re-establish the file path to our data folder
@@ -129,6 +138,8 @@ StorageLocation <- file.path("data") #For Quarto Rendering
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -145,12 +156,16 @@ SFC_GatingSet <- load_gs(GatingSetStorageLocation)
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 plot(SFC_GatingSet)
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -168,14 +183,19 @@ source(DownsamplingRFilePath)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Once `source()` is run, we should see the functions present within the "R" folder become active, as we can see in the right secondary side-bar. 
 :::
 :::
 
+---
 
 ![](images/000_UpdatedVariables.png)
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -183,7 +203,7 @@ At this point, we have re-assembled everything that we previously had and will n
 :::
 :::
 
-
+---
 
 # Walk-through
 
@@ -202,6 +222,8 @@ With the `Downsampling()` function written, the initial components needed for ou
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -209,12 +231,16 @@ As we sketch out our mental plan, it's this middle-late section where we can ant
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Because this new column is located in the `exprs()` matrix, it needs to be 'numeric' (not a 'character' or 'logical' type value). So if our metadata/keywords are character values, we will need to convert them over to some form of numeric-based keyword values, while also providing a means to back-translate these numeric values to their original character form (likely via adding a new keyword within the description/keyword slot to serve as a dictionary).
 :::
 :::
+
+---
 
 
 ::: {.fragment}
@@ -230,6 +256,8 @@ Before getting started, its worth remembering that this is just one approach to 
 :::
 :::
 
+---
+
 
 ## Nesting Downsampling
 
@@ -238,6 +266,8 @@ Before getting started, its worth remembering that this is just one approach to 
 Lets get started by creating a skeleton for our new function. Since `Concatenate()` will need to work/orchestrate things at the level of the entire GatingSet, we will use "gs" as our first argument. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -253,11 +283,15 @@ Concatenate <- function(gs){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 However, we are not just combining entire .fcs files together, rather combining cells present within the same designated gate. So we can go ahead and provide a subset argument, and copy over the roxygen skeleton documentation we used for it in `Downsampling` to avoid needing to rewrite it. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -274,18 +308,23 @@ Concatenate <- function(gs, subset){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Speaking of, the line of code we ran to retrieve our `Downsampling()` outputs would likely be one of the first lines of code we will need to run within `Concatenate()`. Let's go ahead and also copy-paste-it inside the function. We can then see what arguments it needed, and update `Concantenate()` with their respective documentation entries we had previously written for `Downsampling()`. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 When copying-and-pasting in code inside a new function you are creating, remember to check that any expected variable/object mentioned by that line of code matches an argument present within "function()" to avoid encountering errors later on when the function is not able to find that variable in the functions environment. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -322,12 +361,15 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With these initial changes made to our `Concatenate()` function, we can update/refresh it in our local environment by re-running the function code (easiest approach is to select the "Run Cell" option for the code chunk), and then test it to make sure we are getting back the expected code back (the iterating `Downsampling()` output ending up in "flowFrameList" in this particular case).
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -342,6 +384,8 @@ Values <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCo
 
 :::
 
+---
+
 
 ::: {.fragment}
 ```{r}
@@ -350,12 +394,15 @@ nrow(Values[[1]])
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Having successfully retrieved a flowFrame object matching our desired downsample count, we know that our attempt to nest `Downsampling()` inside `Concatenate()` has been successful. 
 :::
 :::
 
+---
 
 ## Conditional Return
 
@@ -364,6 +411,8 @@ Having successfully retrieved a flowFrame object matching our desired downsample
 At this point, we have a nested function. However, when creating `Downsampling()`, we set up a "returnType" argument to allow us to retrieve various desired output types ("fcs", "flowFrame", "data.frame"). By adding a "returnType" argument and then setting up a conditional (using 'if' or 'else') we can enable `Concatenate` to also return these multiple output types.
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -401,6 +450,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With our edits complete, we can re-run the function code-chunk to update it in our local environment (replacing the older active variant), and run our output line again to make sure our changes were implemented correctly.
@@ -414,12 +465,16 @@ Values <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCo
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 head(Values[[1]], 3)
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -434,6 +489,8 @@ Values <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCo
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Values[[1]]
@@ -441,12 +498,15 @@ Values[[1]]
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With our "returnType" argument returning the correct objects when we specify "flowFrame" or "data.frame", our conditional statement is correctly implemented and we are ready to proceed.   
 :::
 :::
 
+---
 
 ## Considerations
 
@@ -456,12 +516,16 @@ At this point, within `Concatenate()`, we are able to retrieve lists of either "
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 While both returnTypes will provide us with `exprs()` matrices, using a "flowFrame" means we would also have direct access to the .fcs file associated metadata (something that the "data.frame" option would not permit). So at this point in building the `Concatenate()` function, we have reached a fork in the coding path, with a couple options to decide between before proceeding. 
 :::
 :::
+
+---
 
 
 ::: {.fragment}
@@ -470,12 +534,16 @@ If we choose returnType = "flowFrame", for the invidiual flowframes, we could di
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Alternatively, if we chose returnType = "data.frame" route, we would already have retrieved via `Downsampling()` the individual `exprs()` "data.frames" for each specimen in our GatingSet. Since no additional metadata is present at this stage, we would need to separately retrieve out keywords for each specimen from our existing GatingSet object, and pass the retrieved keyword value to its corresponding individual's data.frame. At that point, we could append it on as a new column via the `mutate()` function. From there, the process becomes essentially identical to the last steps described above for returnType = "flowFrame".
 :::
 :::
+
+---
 
 
 ::: {.fragment}
@@ -491,6 +559,7 @@ I ultimately decided on going via the returnType = "data.frame" approach. The ma
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -498,7 +567,7 @@ By contrast, returnType = "flowFrame" would mean we are either restricted to the
 :::
 :::
 
-
+---
 
 ## Metadata
 
@@ -518,6 +587,8 @@ colnames(CurrentMetadata)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 As you can see, we have only the standard name column. We can combine in addition metadata for our dataset from a .csv file by repeating the steps we first saw back during [Week 7](/course/07_Transformations/index.qmd#updating-metadata). 
@@ -532,6 +603,8 @@ colnames(AdditionalMetadata)
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -549,6 +622,8 @@ pData(SFC_GatingSet)
 
 :::
 
+---
+
 ### Retrieving Metadata
 
 ::: {.fragment}
@@ -564,12 +639,16 @@ When writing out our function code, one thing we should attempt to avoid is ["ha
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Having committed to the returnType = "data.frame" approach, lets remove from `Concatenate()` the conditional statement, keeping only the "data.frame" option code lines. We can then re-run/re-fresh the `Concatenate()` function, and run the output code line to make sure that it remains operational (in this case, returning `length()` of our "dataFrameList" intermediate). 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -606,6 +685,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000)
@@ -613,18 +694,23 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At this point, we will need to set up the code to retrieve the metadata for subsequent data.frame integration. Since we may not want to integrate all the metadata columns into our concatenated .fcs file as keywords, we should provide an additional argument to designate which metadata columns to actually incorporate. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Lets call this new argument "desiredCols", adding it within 'function()', and adding an entry for the argument to the roxygen2 documentation. Likewise, we can modify our final line of code to `print()` the provided "desiredCols" to validate everything is working post changes.
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -662,11 +748,15 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 After re-running/re-freshing our function, we can modify our check-the-output code-chunk, to make sure we get back the final function output ("print(desiredCols)" in this case).
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -676,12 +766,16 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With this done, let's go ahead and retrieve the GatingSet metadata via `pData()`. Since this returns as a "data.frame" object, we can subset for just our columns of interest (as designated via "desiredCols") using `dplyr`'s `select()` function. Since we are passing in a vector of external character strings, we will need to place `select()` inside the `tidyselect` packages `all_of()` function in order to avoid having a warning message be returned. We can then modify our final return line to return the subsetted metadata, enabling troubleshooting after we re-run/re-fresh our function. 
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -726,6 +820,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -733,6 +829,8 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -749,6 +847,8 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Nope, still working as intended :D So at this point, `Concatenate()` will extract and subset the GatingSet metadata. Within, each row corresponds to an individual specimen, with each keyword column being a value we will want to append on to the specimens `exprs()` data.frame as a new column. 
@@ -762,6 +862,7 @@ However, at the moment, our "dataFrameList" object inside `Concatenate()` is a l
 :::
 :::
 
+---
 
 ### Helper Function - Keyword Append
 
@@ -778,12 +879,15 @@ From the current internally generated variables/objects within `Concatenate()`, 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 So our initial function/roxygen2 skeleton would look like this
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -802,11 +906,15 @@ KeywordAppend <- function(x, y, metadata) {
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With our arguments set up, we can start figuring out how to tackle the first of the two moving (i.e. iterated in) pieces, "x", which will be the specimen name we will use to `filter()` the "metadata" to get back the specimen specific role for use downstream. Our initial code line for `KeywordAppend()` therefore would look like this
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -828,6 +936,8 @@ KeywordAppend <- function(x, y, metadata) {
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At this point, "AddThisRow" would consist of a single row, containing just the keyword columns that were selected (via "desiredCols" argument) we want to integrate in as new keyword columns. 
@@ -841,6 +951,7 @@ Having successfully what we need to append, we can tackle the second moving (i.e
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -848,12 +959,15 @@ Remember, within `Concatenate()`, the list of `exprs()` data.frames is currently
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 To help troubleshoot that things are being iterated in correctly (and not ending up one level up or below somewhere in a nested list), I will typically assign them to an internal variable for troubleshooting purposes. Since our iterated in `exprs()` data.frame as y, we could save it to a "df" variable inside the function for later evaluation.  
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -877,11 +991,15 @@ KeywordAppend <- function(x, y, metadata) {
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 After checking that "df" is indeed just a data.frame (via `str()` function), we can proceed to combine the isolated row containing the desired keywords as new columns. This can be done using `dplyr`'s `bind_cols()` function. Since "AddThisRow" is just an individual row, while "df" contains multiple rows, `bind_cols()` argument will end up duplicating the single metadata row the necessary number of times to match the rows present in "df". 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -906,12 +1024,15 @@ KeywordAppend <- function(x, y, metadata) {
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At this point, `KeywordAppend()` has carried out it's task, and we have an expanded data.frame that contains the new keyword columns. We now just need to integrate this completed helper function within our `Concatenate()` function. 
 :::
 :::
 
+---
 
 ### Appending Metadata
 
@@ -920,6 +1041,7 @@ At this point, `KeywordAppend()` has carried out it's task, and we have an expan
 For `KeywordAppend()`, we are intending to iterate in two separate arguments ("x" and "y"). "x" corresponds to the name of the specimen used to `filter()` the correspond row in "metadata". Since we have not yet generated a vector of specimen names for this task, we can achieve this by `pull()`ing "metadata"s name column, ending up with a vector of names.  
 :::
 :::
+---
 
 ::: {.fragment}
 ```{r}
@@ -965,12 +1087,15 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We now have a vector ("TheFileNames") to pass to "x", and a list of data.frames ("dataFrameList") to pass to "y" for iteration.  Since the `purrr` packages `map()` function is only able to handle 1 iterating argument at a time, we will need to use the related `map2()` function to handle simultaneously iterating through the "x" and "y" arguments. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -978,6 +1103,8 @@ As a result, the line of code to iterate both "x" and "y" to `KeywordAppend()` w
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1026,6 +1153,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 `Concatenate()` should now be set up to retrieve and append the keyword columns to the individual data.frames. We should re-run/re-fresh the function to update it in our local environment, and run the output line to verify we are getting back a list of data.frames containing the appended designated columns. 
@@ -1040,12 +1169,16 @@ Data <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCoun
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 length(Data)
 ```
 
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1054,12 +1187,15 @@ colnames(Data[[1]])
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 And as we can see, we still get back the same number of data.frames we were expecting for our 3 specimens, and these data.frames now contain the four keyword columns we had designated. Woooh! We have made substantial progress through the initial mental-sketch-plan. 
 :::
 :::
 
+---
 
 ## Concatenation
 
@@ -1068,6 +1204,8 @@ And as we can see, we still get back the same number of data.frames we were expe
 With the individual `exprs` data.frames having been updated with the specimen specific keyword values (and thus now distinguishable), it is safe to combine/concatenate them together into a single larger data.frame object. We can do this by passing our list of data.frames to `dplyr`'s `bind_rows()` function.
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1118,6 +1256,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We can then re-run/re-fresh the function, run our output line. Since everything should now be in one data.frame, we can `pull()` the name keyword column and identify the `unique()` values to ensure we still have the three specimens we started with. 
@@ -1134,6 +1274,8 @@ Data |> pull(name) |> unique()
 
 :::
 
+---
+
 ## Halfway There
 
 ::: {.fragment}
@@ -1149,6 +1291,7 @@ With the additional columns now in our concatenated data.frame, we will need to 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -1156,6 +1299,7 @@ Likewise, new `exprs()` columns will require updating the [parameter slot](/cour
 :::
 :::
 
+---
 
 ## Numeric Keywords
 
@@ -1164,6 +1308,8 @@ Likewise, new `exprs()` columns will require updating the [parameter slot](/cour
 Since we are trying to generalize the code (to avoid hard-coding), let's start by differentiating what data.frame columns were added, vs. which were original, using `all_of()` and `select()` to subset for or subset against the column names that were specified in "desiredCols"
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1217,6 +1363,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Data <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -1227,6 +1375,7 @@ colnames(Data)
 
 :::
 
+---
 
 ### Helper Function - ColumnToKeyword
 
@@ -1237,11 +1386,15 @@ We can now start planning out a new helper function to help us go from "characte
 :::
 
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Lets go ahead and call this helper function `ColumnToKeyword()` and write out an initial function skeleton for it. We would be iterating in new columns present in "NewData", via their column names (designated in "desiredCols"), so we could use the typical "x" and "data" style arguments we have encountered before. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1264,11 +1417,15 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At this point, `ColumnToKeyword()` will have isolated out the individual iterated in column. We can at this point set up a conditional using `is.numeric()` to check the type of values contained within, and handle subsequent steps depending on the answer. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1298,11 +1455,15 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the conditional setup, we can now start filling in what to do depending on whether the column already is numeric or not. Lets handle a result of `is.numeric` == FALSE. First off, we should identify what unique values are present (since with keywords, there are likely to be many rows of duplicated values)
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1334,18 +1495,23 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We now have a vector of original unique non-numeric "Values".  We now need to create numeric standins for each. Typically, for keywords visualized via commercial software, we want to provide enough space between the numbers to gate safely. We can create a new vector ("Values_Key") the `length()` of our unique "Values" that sequentially increases by 1000. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We can pass both "Values" and "Values_Key" to the `tibble()` function to create a "tibble" that can serve as the Dictionary look-up for this keyword (In general, `tibbles` and `data.frames` objects are similar, but differ slightly in [some of their behavior](https://jtr13.github.io/cc21fall1/tibble-vs.-dataframe.html))
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1381,18 +1547,23 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Next, our column names are going to be "Values" and "Values_Key". Ideally, we would want to substitute in the actual column name (currently held within "x"), or as we iterate we are just going to end up with repeated number of columns called "Values" and "Values_Key". We can improvise this using the `gsub()` function. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At that point, `ColumnToKeyword()` has generated the Dictionary Lookup, so we can close out by passing the assembled "tibble" to `return()`, closing out the function code when a non-numeric column is encountered. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1430,11 +1601,15 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the non-numeric columns now being correctly parsed into a Dictionary tibble, we can repeat the process to generate an equivalent for the numeric columns. In this case, we don't need to change anything, so we can get away with just providing the "Values" vector to both "Values" and "Values_Key" when creating the dictionary. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1472,11 +1647,15 @@ ColumnToKeyword <- function(x, data){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At this point, the code for our `ColumnToKeyword()` helper function is complete, so we can go ahead and integrate it into `Concatenate()`, passing in our "NewData" columns, and ending up with a list of "DictionaryLookup" tibbles that can subsequently get added into the [description/keyword list](/course/03_InsideFCSFile/index.qmd#description).
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1532,6 +1711,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Data <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -1542,6 +1723,8 @@ Data[[1]]
 
 :::
 
+---
+
 ## Original Parameters
 
 ::: {.fragment}
@@ -1550,6 +1733,7 @@ Having derived the dictionary translations we will need for converting back-and-
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -1557,6 +1741,8 @@ Rather than try to create an entire .fcs framework from scratch, it is far easie
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1619,12 +1805,16 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Once we have accessed the correct specimen, we will need to make sure we retrieve the underlying data via a [flowframe](/course/05_GatingSets/index.qmd#flowframe)(i.e. in RAM) instead of as a cytoframe (i.e accessed via a pointer). Consequently, we can copy in and modify some of the code we have encountered previously during [Week 09](/course/09_Functions/index.qmd) for this purpose. 
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1692,6 +1882,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -1699,6 +1891,8 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 ```
 
 :::
+
+---
 
 ## Dictionary Keywords
 
@@ -1708,6 +1902,7 @@ Add this point, we have retrieved the contents of the original parameters and de
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -1715,6 +1910,8 @@ This process is actually rather simple. Namely, we need to remove one level of t
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1784,6 +1981,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 DescriptionList <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -1794,12 +1993,15 @@ tail(DescriptionList, 10)
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Our keyword lookup dictionaries are now present in the description/keyword list variable, where they can be used to convert and revert back between numeric and non-numeric values. With these dictionaries now safely stored away, lets proceed to convert over the values currently within the `exprs()` data.frame from their non-numeric values to matrix-appropiate numeric values. 
 :::
 :::
 
+---
 
 ### Helper Function - Keyword Translate
 
@@ -1809,12 +2011,15 @@ To start the conversion from non-numeric to numeric, we will need to retrieve th
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 While an iteration approach for each column could be attempted, in this case, I chose to instead implement a [for-loop]() within a new helper function `KeywordTranslate()` to handle the conversion. Consequently, only two arguments are needed for setup, the "DictionaryList" and "data". The for-loop starts off  by retrieving the names of the first and second column (original and key values)
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1835,12 +2040,15 @@ KeywordTranslate <- function(DictionaryList, data) {
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the names of the original and key columns in the DictionaryList object retrieved, the new column `exprs()` data.frame and DictionaryList `tibble` are merged by pipeing to `left_join` on basis of the original column name. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -1848,6 +2056,8 @@ Then, the original column is removed, leaving only the numeric key column, and t
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1875,6 +2085,8 @@ KeywordTranslate <- function(DictionaryList, data) {
 
 :::
 
+---
+
 ### Converting to Numeric
 
 ::: {.fragment}
@@ -1882,6 +2094,8 @@ KeywordTranslate <- function(DictionaryList, data) {
 At the completion of the for-loop, `KeywordTranslate()` has converted over all the provided DictionaryLookup keywords, and the contents of the appended keyword columns are all numeric values, allowing for integration back into an`exprs()` matrix. With this now setup, we can add it to `Concatenate()` 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -1953,6 +2167,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Data <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -1963,6 +2179,8 @@ str(Data)
 
 :::
 
+---
+
 ## Reassembling flowFrame
 
 
@@ -1972,12 +2190,15 @@ Having made changes to both `exprs()` and `description()`, lets go ahead assembl
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 We can start by converting both the 'TranslatedNewData' and 'OldData' data.frames back into matrix format. We can then bundle 'OldData', 'OriginalParameters' along with our modified NewDescriptions (containing DictionaryLookups) together into a new 'flowframe object'
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2055,6 +2276,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Data <- Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -2064,6 +2287,8 @@ Data
 ```
 
 :::
+
+---
 
 ## Calm before the Storm
 
@@ -2080,6 +2305,8 @@ Glancing back at our [starting-mental-sketch](/course/10_Downsampling/concatenat
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2087,6 +2314,7 @@ From our exploration during [Week 03](/course/03_InsideFCSFile/index.qmd#paramet
 :::
 :::
 
+---
 
 ## Helper Function - ParameterUpdate
 
@@ -2096,6 +2324,7 @@ Having done a bit of cleanup within `Concatenate()` our two existing objects inc
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2103,6 +2332,8 @@ To get started on this last major hurdle, lets write out a new helper function, 
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2122,12 +2353,16 @@ ParameterUpdate <- function(flowFrame, NewColumns){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Our first order (especially if our goal is to generalize the new column integration as rows in parameters data slot) is to identify how many columns we are working with, their names, and how many existing rows are present within `parameters()` data slot. 
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2153,11 +2388,15 @@ ParameterUpdate <- function(flowFrame, NewColumns){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Having retrieved the OldParameters, using `rownames()` we can retrieve the existing '$P30' style names. We can remove the '$P' portion using `gsub()`, convert back into a numeric via `as.integer()`, and run `max()` to get back the current final row. From there, we can just add 1 to get the row number we will need to use for the rowname for our first new keyword that needs to be added in. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2185,11 +2424,15 @@ ParameterUpdate <- function(flowFrame, NewColumns){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With the first of the new row numbers identified, we can extend this sequence out via `seq()` with a length corresponding to our number of columns. We can then modify this vector by `paste0()` in the '$P' characters infront of each number.    
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2219,6 +2462,8 @@ ParameterUpdate <- function(flowFrame, NewColumns){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Finally, we can iterate through the NewColumns, and create a corresponding `parameter()` data entry (with the information for 'name', 'desc', 'range', 'minRange' and 'maxRange'). 
@@ -2232,6 +2477,8 @@ The following code borrows from the `flowCore` packages base R implementation of
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2239,12 +2486,15 @@ The following code borrows from the `flowCore` packages base R implementation of
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Then `do.call()` in combination with `rbind()` binds all these together into a single data.frame. At this point we modify the `rownames()` by passing it the vector of '$P30' entries starting with the number we had determined. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2285,11 +2535,15 @@ ParameterUpdate <- function(flowFrame, NewColumns){
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 With this process complete, we now have retrieved the new data.frame rows that we will need to append to the OriginalParameters to account for the new `exprs()` columns. Lets go ahead and integrate `ParameterUpdate()` into `Concatenate()`. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2369,6 +2623,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -2376,6 +2632,8 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 ```
 
 :::
+
+---
 
 ## Appending New Parameters
 
@@ -2392,6 +2650,8 @@ From our assembled flowframe (new_fcs), we can extract out the parameters data s
 :::
 :::
 
+---
+
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2399,6 +2659,7 @@ We similarly do the same adding the new numeric keyword columns to the `exprs()`
 :::
 :::
 
+---
 
 ::: {.fragment}
 ```{r}
@@ -2483,6 +2744,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -2491,12 +2754,15 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 As we can see from the output, now both the `exprs()` and `parameters()` slots have been appropiately updated with the new keyword columns. 
 :::
 :::
 
+---
 
 ## Final Keywords
 
@@ -2506,6 +2772,7 @@ Now, all that is left to do is for each new '$P30'-style row number we added to 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2513,6 +2780,8 @@ Since these were last calculated within `ParameterUpdate()`, we don't already ha
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2600,12 +2869,15 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 So, for each new '$P' rowname, we need to generate all its respective keyword variants, and integrate them into our 'new_kw' list. 
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
@@ -2613,6 +2885,8 @@ The easiest way to do this is via a for-loop, creating 'B', 'E', 'N', 'R', 'DISP
 :::
 :::
 
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2712,11 +2986,15 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Finally, we can gather the updated `exprs()`, `parameter()` and 'new_kw' objects we modified in this last push, and use them to create a new fully-updated flowframe.  
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2822,6 +3100,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
@@ -2830,11 +3110,15 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Congratulations! You have fully-modified a flowframe to integrate in your keywords correctly. All that remains is minor cleanup. 
 :::
 :::
+
+---
 
 
 ## Out to FCS
@@ -2845,12 +3129,15 @@ With our new flowframe built, all that remains is to make a few modifications to
 :::
 :::
 
+---
 
 ::: {.fragment}
 ::: {.callout-tip title="."}
 At that point, we can borrow from our previous returnType code for `Downsampling()` to allow us to dictate whether the flowframe should be returned as is, as a data.frame, or written out as a new .fcs file to our storage folder of interest. 
 :::
 :::
+
+---
 
 ::: {.fragment}
 ```{r}
@@ -2978,6 +3265,8 @@ Concatenate <- function(gs, subset, inverse.transform=TRUE, DownsampleCount,
 
 :::
 
+---
+
 ::: {.fragment}
 ```{r}
 #| eval: FALSE
@@ -2987,12 +3276,15 @@ Concatenate(gs=SFC_GatingSet, subset="CD4+", addon="CD4", DownsampleCount=2000,
 
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Y colorín, colorado, este cuento se ha acabado. This was the process by which `Concatenate()` was written. To see how it was implemented in a workflow, click here to return to [Week 10](/course/10_Downsampling/index.qmd#concatenate-code)
 :::
 :::
 
+---
 
 # Take Away
 
@@ -3010,6 +3302,8 @@ However, there is value in at least understanding the basic ideas and interconne
 :::
 :::
 
+---
+
 ::: {.fragment}
 ::: {.callout-tip title="."}
 Additionally, the ability to encode important information on a cell-by-cell basis and back-translate from the description list will prove immensely useful [later on](/Schedule.qmd#validating-algorthmic-tools) when we kick-the-tires of the various unsupervised analysis algorithms and try to determine how they actually work behind the scenes. 
@@ -3017,8 +3311,11 @@ Additionally, the ability to encode important information on a cell-by-cell basi
 :::
 :::
 
+---
 
 ![](images/TakeAway2.jpg)
+
+---
 
 ::: {style="text-align: right;"}
 [![AGPL-3.0](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
