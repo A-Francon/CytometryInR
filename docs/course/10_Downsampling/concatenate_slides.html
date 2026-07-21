@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="David Rach">
-  <meta name="dcterms.date" content="2026-05-31">
+  <meta name="dcterms.date" content="2026-07-20">
   <title>Cytometry in R – Walk-through: Concatenate</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -216,7 +216,7 @@ David Rach
 </div>
 </div>
 
-  <p class="date">2026-05-31</p>
+  <p class="date">2026-07-20</p>
 </section>
 <section class="slide level2">
 
@@ -225,8 +225,6 @@ David Rach
 <p><a href="https://www.gnu.org/licenses/agpl-3.0.en.html"><img data-src="https://img.shields.io/badge/license-AGPLv3-blue.png" alt="AGPL-3.0"></a> <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img data-src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" alt="CC BY-SA 4.0"></a></p>
 </div>
 <p>For the YouTube livestream recording, see <a href="https://www.youtube.com/live/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;t=68">here</a></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;start=68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
 <p>For screen-shot slides, click <a href="../../course/10_Downsampling/concatenate_slides.html">here</a></p>
 <p><br></p>
 </section>
@@ -1008,33 +1006,33 @@ David Rach
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">head</span>(Values[[<span class="dv">1</span>]], <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Time    SSC-W  SSC-H    SSC-A    FSC-W   FSC-H   FSC-A  SSC-B-W SSC-B-H
-1 563239 739183.4 434521 535317.9 719906.2 1383200 1659624 717112.3  392557
-2 248666 780505.9 438441 570343.0 760134.6 1386215 1756183 774569.4  358181
-3 167366 732594.4 311578 380433.8 696298.7 1406829 1632622 698794.5  261407
-   SSC-B-A  BUV395-A  BUV563-A   BUV615-A BUV661-A  BUV737-A BUV805-A
-1 469179.1 1064.6638 14774.623   81.81881 255.7878 15015.015 23199.04
-2 462393.4 6238.5103  9748.612 3134.39795 433.0875  6121.645 24631.14
-3 304449.6  831.6221  2286.687 -432.11948 -76.2615  5571.811 28610.90
-  Pacific Blue-A    BV480-A    BV570-A   BV605-A   BV650-A    BV711-A   BV750-A
-1      268.45773 -129.93866  -262.9935 24610.119 -467.4249  -88.17514 7272.6934
-2       83.31389  785.00470   472.1108  1304.205  515.9097 -289.98370  572.1237
-3      552.14661   47.86495 -1058.2455 34618.844  397.2319 -325.48605 -479.9358
-    BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A   RB613-A
-1 -573.7818         459.44757         29340.02         9757.750 1073.4696
-2  490.6708         106.09897         25311.36         9822.578 1220.0671
-3 1624.5815         -80.95611         16609.24        10005.478 -614.6647
-   RB705-A    RB780-A     PE-A PE-Dazzle594-A PE-Cy5-A PE-Fire 700-A
-1 60867.21  1202.6074 1473.978       849.9843 751.0679      4129.174
-2 34202.74  -483.2104 4294.114       835.7646  99.7700     10465.933
-3 62625.94 -1000.8173 1787.541       810.5782 383.2735      3041.196
+1 547195 776162.4 548397 709408.6 745361.4 1383763 1719006 770319.1  401767
+2 406880 765830.3 395243 504481.8 685860.6 1001170 1144438 740960.1  394021
+3 222911 737831.5 415602 511073.7 723277.6 1233878 1487394 733929.7  305032
+   SSC-B-A  BUV395-A  BUV563-A BUV615-A  BUV661-A  BUV737-A BUV805-A
+1 515814.7  6114.586 11732.406 531.6829 -740.1149 10588.303 33465.02
+2 486589.8 13729.732 17324.523 811.9858 -213.6944 16281.049 30280.66
+3 373120.1 12470.735  1263.216 510.8153 -431.6359  4899.274 20410.16
+  Pacific Blue-A   BV480-A    BV570-A   BV605-A   BV650-A    BV711-A   BV750-A
+1       344.4035  546.7008   201.4612 63411.785  821.9383   41.43253 1863.9307
+2       816.9494  370.5504 -1066.5217 16454.701 -427.0280 -448.61832  733.3427
+3       486.2399 -472.2239  -364.4935  4682.436 -291.5961 -113.31457 1473.2169
+      BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A   RB613-A
+1   677.13904         299.95483         45266.75         14667.09 -105.3182
+2 -1787.27942         741.75031         31673.01         12131.48 -611.0626
+3   -49.02449          36.38633         35866.94          5559.71 2458.2971
+    RB705-A   RB780-A      PE-A PE-Dazzle594-A  PE-Cy5-A PE-Fire 700-A
+1 116159.96  774.7791  982.0723       501.1302 -308.9295      3313.634
+2  44729.06 -663.0827 3661.8635       917.8704  236.2568      6870.251
+3  20693.35  176.1981 6590.5674      -168.2864  514.7694      1871.291
   PE-Fire 744-A PE-Vio770-A     APC-A Alexa Fluor 647-A APC-R700-A Zombie NIR-A
-1     -223.7630    167.3089  232.3302         -147.6742 1152.54529     600.6591
-2      511.6119     84.5077 -299.8503          394.9398  948.83893     813.2303
-3     -102.8794    862.0831  313.9410          584.4663  -12.89756     754.5427
+1    -287.83209   1521.4299 1573.3500         -21.23612  301.78918     712.0754
+2     -50.12419    878.0815  849.8962         247.04893   35.33062     586.4898
+3    -147.30237    481.3978  964.8918          14.06361  535.27362     689.8729
   APC-Fire 750-A APC-Fire 810-A     AF-A
-1      22019.977      10664.400 4974.812
-2      15512.418       9239.663 4181.818
-3       5522.351      10680.803 3805.108</code></pre>
+1       16261.46       8607.188 4821.140
+2       13124.43      10350.410 2801.194
+3        9951.13       7561.799 5040.663</code></pre>
 </div>
 </div>
 </div>

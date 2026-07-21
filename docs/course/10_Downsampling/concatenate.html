@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Rach">
-<meta name="dcterms.date" content="2026-05-31">
+<meta name="dcterms.date" content="2026-07-20">
 
 <title>Walk-through: Concatenate – Cytometry in R</title>
 <style>
@@ -537,7 +537,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 31, 2026</p>
+      <p class="date">July 20, 2026</p>
     </div>
   </div>
   
@@ -554,6 +554,8 @@ window.Quarto = {
 <p><a href="https://www.gnu.org/licenses/agpl-3.0.en.html"><img src="https://img.shields.io/badge/license-AGPLv3-blue.png" class="img-fluid" alt="AGPL-3.0"></a> <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" class="img-fluid" alt="CC BY-SA 4.0"></a></p>
 </div>
 <p>For the YouTube livestream recording, see <a href="https://www.youtube.com/live/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;t=68">here</a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;start=68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
 <p>For screen-shot slides, click <a href="../../course/10_Downsampling/concatenate_slides.html">here</a></p>
 <p><br></p>
 <hr>
@@ -793,33 +795,33 @@ Attaching package: 'dplyr'</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Values[[<span class="dv">1</span>]], <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Time    SSC-W  SSC-H    SSC-A    FSC-W   FSC-H   FSC-A  SSC-B-W SSC-B-H
-1 893485 751278.9 500792 627057.5 730217.9 1355194 1649312 719707.6  438384
-2 351329 773890.6 251660 324595.5 690984.3  906408 1043856 733409.9  220799
-3 254684 748418.8 488747 609645.8 738211.4 1218170 1498778 730263.0  324289
-   SSC-B-A  BUV395-A  BUV563-A  BUV615-A  BUV661-A BUV737-A BUV805-A
-1 525847.1 28538.189  3369.288  108.0819 -189.8242 8720.529 35011.81
-2 269893.6  3614.851  2293.726  264.4419  -59.7036 8624.886 26293.58
-3 394693.8  2789.621 16217.739 -502.3599 -124.2707 5152.474 28499.50
-  Pacific Blue-A   BV480-A    BV570-A  BV605-A   BV650-A    BV711-A   BV750-A
-1       988.4554 -268.4181   96.59409 22058.92 -140.6441  -761.2369 1123.8821
-2       740.4835  552.5992 -411.15448 20911.16  105.9250 -1074.3618  548.2530
-3       365.3436 -265.4434  637.80676 33094.43 -143.0954   895.6386  683.5524
-    BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A   RB613-A
-1  15.06581          822.3099         36100.45        11685.327  693.4750
-2 269.74738          511.8119         39154.06         8112.786  632.0668
-3 872.34222         -235.5316         25135.24        10474.894 -281.8665
+1  38036 787194.4 501545 658022.3 710807.5 1526709 1808660 764092.8  357051
+2 177173 734862.3 313955 384522.8 709275.5 1176144 1390350 704308.8  240621
+3 180314 792100.4 398713 526367.9 744197.1 1234393 1531053 765459.1  326602
+   SSC-B-A  BUV395-A   BUV563-A   BUV615-A  BUV661-A  BUV737-A BUV805-A
+1 454700.1  8890.642 10114.8848 -168.06041  29.60711 13007.173 31322.25
+2 282452.5  5374.138   891.4647   48.05706 104.97245  3825.132 14773.20
+3 416667.4 15093.219  3427.7324  567.62085 639.19812  6384.237 30618.61
+  Pacific Blue-A    BV480-A   BV570-A  BV605-A   BV650-A   BV711-A    BV750-A
+1       675.7951 -372.29047 -121.7973 21774.46 -477.1472 1384.9080   7.475851
+2       552.2842   29.02098 -415.8126 12493.23  174.0732 -488.6594 125.359291
+3       234.4265  511.14087  881.8350 25282.19 -485.7989 -679.5672 778.801025
+   BV786-A Alexa Fluor 488-A Spark Blue 550-A Spark Blue 574-A   RB613-A
+1 380.4339     372.610412598         30605.44        10120.826 -405.8485
+2 815.2531      -0.007622182         17594.36         6191.520  342.7990
+3 608.6031     856.750122070         33224.42         8300.192 -588.4060
    RB705-A   RB780-A      PE-A PE-Dazzle594-A PE-Cy5-A PE-Fire 700-A
-1 46413.99 1146.3301 3373.5464       220.2426 799.2888      2037.823
-2 86891.78 -259.9030  820.0635      -370.2355 167.8084      3046.856
-3 62212.64  419.0617  391.4763       278.0746 208.0087      3068.469
+1 47150.33  11.79858 1990.9650       297.4336 658.8248      3255.123
+2 39436.51 -24.88574 1510.2472      -884.5797 519.5820      3133.795
+3 77228.59 161.10095  441.9505      1091.8640 175.2799      2795.278
   PE-Fire 744-A PE-Vio770-A     APC-A Alexa Fluor 647-A APC-R700-A Zombie NIR-A
-1      690.6830   -84.12591 1535.7009        -139.83607   641.4341     63.35442
-2     -590.4329   677.11707 1542.0167       -1691.62646  1161.5847    130.49394
-3      855.3606   -44.82363  164.4062         -70.65484   141.8517    366.75986
+1      361.4411    718.4068 449.49509         -400.3510  -626.3627    1989.2955
+2     -155.3706    477.3501  55.40111         -256.0987   378.1017     872.0800
+3     -222.9967    673.6042 -95.18210          615.6754   896.9889     764.3059
   APC-Fire 750-A APC-Fire 810-A     AF-A
-1      21535.461      15997.090 4816.475
-2       5699.131       6546.446 2112.091
-3      12008.427       7098.105 4420.349</code></pre>
+1       19302.48      13483.942 5446.131
+2       12170.37      10793.707 3132.559
+3       13069.56       7958.569 2965.125</code></pre>
 </div>
 </div>
 <p>Having retrieved back a “data.frame” style, lets switch “returnType” argument back and make sure we can still also retrieve a “flowFrame” object (which means our conditional statement is implemented correctly).</p>

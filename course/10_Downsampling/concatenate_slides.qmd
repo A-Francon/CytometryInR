@@ -1,7 +1,7 @@
 ---
 title: "Walk-through: Concatenate"
 author: "David Rach"
-date: 05-31-2026
+date: 07-20-2026
 format:
   revealjs:
     theme: default
@@ -21,8 +21,6 @@ execute:
 :::
 
 For the YouTube livestream recording, see [here](https://www.youtube.com/live/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&t=68)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EblRvM6i188?si=OydgdLWQ_E2Gg2EF&amp;start=68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 For screen-shot slides, click [here](/course/10_Downsampling/concatenate_slides.qmd)
 
